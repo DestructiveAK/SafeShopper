@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "781667575834",
+    "firebase_url": "https://safeshopper-eedd3.firebaseio.com",
+    "project_id": "safeshopper-eedd3",
+    "storage_bucket": "safeshopper-eedd3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781667575834:android:23f624bc476504832209a3",
+        "android_client_info": {
+          "package_name": "com.deathstorm.SafeShopper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781667575834-1dn53gil1fddi8ui409lsm8fmbqdkojh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzZhaiec0SXnAgqGX9CREvsAaJB6pvs4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781667575834-1dn53gil1fddi8ui409lsm8fmbqdkojh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
