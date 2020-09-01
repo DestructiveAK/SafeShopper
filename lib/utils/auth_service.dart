@@ -40,6 +40,10 @@ class AuthService {
     }
   }
 
+  static void signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   static void signUp(BuildContext context, String name, String phone,
       String address, String email, String password) {
     FirebaseAuth.instance
@@ -68,7 +72,7 @@ class AuthService {
     });
   }
 
-  User currentUser() {
-    return FirebaseAuth.instance.currentUser;
+  static String userId() {
+    return FirebaseAuth.instance.currentUser.uid;
   }
 }
