@@ -50,18 +50,19 @@ class AuthService {
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((userCredential) => {
               AuthService.createUserDetails(
-                  userCredential.user, context, name, phone, address)
+                  userCredential.user, context, name, email, phone, address)
             })
         .catchError((e) {
       print(e);
     });
   }
 
-  static void createUserDetails(User user, BuildContext context, String name,
+  static void createUserDetails(User user, BuildContext context, String name, String email,
       String phone, String address) {
     FirebaseFirestore.instance.collection('/users').add({
       'userId': user.uid,
       'name': name,
+      'email': email,
       'phone': phone,
       'address': address
     }).then((user) {
