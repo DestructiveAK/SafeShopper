@@ -24,6 +24,13 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text('SIGNUP'),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         width: double.infinity,
         height: size.height,
@@ -38,21 +45,14 @@ class _SignUpPageState extends State<SignUpPage> {
               top: 0,
               left: 0,
             ),
-            Positioned(
-              child: Image(
-                image: AssetImage('assets/images/abstract3.png'),
-              ),
-              bottom: 0,
-              right: 0,
-            ),
             SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'SIGN UP',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  // Text(
+                  //   'SIGN UP',
+                  //   style: TextStyle(fontWeight: FontWeight.bold),
+                  // ),
                   SizedBox(height: size.height * 0.03),
                   SvgPicture.asset(
                     'assets/images/abstract2.svg',
