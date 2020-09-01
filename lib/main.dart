@@ -17,9 +17,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => ThemeModeNotifier())
-    ],
+    providers: [ChangeNotifierProvider(create: (_) => ThemeModeNotifier())],
     child: App(),
   ));
 }
@@ -29,7 +27,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SafeShopper',
-      theme: ThemeData.from(colorScheme: ColorScheme.light()),
+      theme: ThemeData.from(colorScheme: ColorScheme.light()).copyWith(
+        primaryColor: Colors.cyan,
+      ),
       darkTheme: ThemeData.from(colorScheme: ColorScheme.dark()),
       themeMode: Provider.of<ThemeModeNotifier>(context).mapThemeMode(),
       debugShowCheckedModeBanner: false,
