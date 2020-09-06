@@ -136,37 +136,25 @@ class SettingsPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          ListTile(
-                            title: Text('Name'),
-                            subtitle: Text(userDetails['name']),
-                            leading: Icon(
-                              Icons.person,
-                              size: 30,
-                            ),
+                          UserDetailsTile(
+                            field: 'Name',
+                            value: userDetails['name'],
+                            icon: Icons.person,
                           ),
-                          ListTile(
-                            title: Text('Email'),
-                            subtitle: Text(userDetails['email']),
-                            leading: Icon(
-                              Icons.email,
-                              size: 30,
-                            ),
+                          UserDetailsTile(
+                            field: 'Email',
+                            value: userDetails['email'],
+                            icon: Icons.email,
                           ),
-                          ListTile(
-                            title: Text('Phone No'),
-                            subtitle: Text(userDetails['phone']),
-                            leading: Icon(
-                              Icons.phone,
-                              size: 30,
-                            ),
+                          UserDetailsTile(
+                            field: 'Phone',
+                            value: userDetails['phone'],
+                            icon: Icons.phone,
                           ),
-                          ListTile(
-                            title: Text('Address'),
-                            subtitle: Text(userDetails['address']),
-                            leading: Icon(
-                              Icons.landscape,
-                              size: 30,
-                            ),
+                          UserDetailsTile(
+                            field: 'Address',
+                            value: userDetails['address'],
+                            icon: Icons.landscape,
                           ),
                           Divider(),
                           ListTile(
