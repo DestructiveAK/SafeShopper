@@ -4,17 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:SafeShopper/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class SettingsPage extends StatefulWidget {
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  AppThemeMode _themeMode;
-
+class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    _themeMode = Provider.of<ThemeModeNotifier>(context).getThemeMode();
+    AppThemeMode _themeMode =
+        Provider.of<ThemeModeNotifier>(context).getThemeMode();
 
     return Scaffold(
       appBar: AppBar(
