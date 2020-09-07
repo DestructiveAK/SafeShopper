@@ -1,104 +1,62 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:SafeShopper/pages/buyer_screen.dart';
+import 'package:SafeShopper/pages/settings_screen.dart';
+import 'package:SafeShopper/utils/animate_child.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  int _currentIndex = 0;
+  List<Widget> _page = [
+    BuyerPage(),
+    SettingsPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shops'),
+        title: Text(_currentIndex == 0 ? 'Home' : 'Settings'),
         centerTitle: true,
         actions: [
-          IconButton(
+          if (_currentIndex == 0)
+            IconButton(
+              icon: Icon(Icons.filter_list),
+              onPressed: () {},
+            )
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 10,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          _currentIndex = index;
+          setState(() {});
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.of(context).pushNamed('/settings');
-            },
+            title: Text('Settings'),
           )
         ],
       ),
-      body: Container(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('/shops').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Some error has occured. Please try again later.'),
-              );
-            }
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            final documents = snapshot.data.docs;
-            return ListView.builder(
-              physics: ClampingScrollPhysics(),
-              padding: EdgeInsets.all(8.0),
-              itemCount: documents.length,
-              itemBuilder: (context, index) => Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                margin: EdgeInsets.all(8.0),
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  leading: getIcon(documents[index].data()['category']),
-                  title: Text(documents[index].data()['name']),
-                  subtitle: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(
-                            'Owner: ${documents[index].data()['ownerName']}'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 3.0),
-                        child: Text(
-                            'Category: ${documents[index].data()['category']}'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Icon getIcon(String data) {
-    IconData icon;
-    switch (data) {
-      case 'Electronics':
-        icon = Icons.electrical_services;
-        break;
-      case 'Food':
-        icon = Icons.fastfood;
-        break;
-      case 'Grocery':
-        icon = Icons.local_grocery_store;
-        break;
-      case 'Furniture':
-        icon = Icons.single_bed;
-        break;
-      case 'Medicine':
-        icon = Icons.medical_services;
-        break;
-      case 'Bakery':
-        icon = Icons.cake;
-        break;
-      default:
-        icon = Icons.shopping_basket;
-    }
-    return Icon(
-      icon,
-      size: 35.0,
+      // body: AnimatedCrossFade(
+      //   duration: Duration(milliseconds: 500),
+      //   firstChild: _page[0],
+      //   secondChild: _page[1],
+      //   crossFadeState: _currentIndex == 0
+      //       ? CrossFadeState.showFirst
+      //       : CrossFadeState.showSecond,
+      // ),
+      body: AnimateChild(child: _page[_currentIndex]),
     );
   }
 }

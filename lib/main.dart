@@ -1,6 +1,5 @@
 import 'package:SafeShopper/pages/home_screen.dart';
 import 'package:SafeShopper/pages/login_screen.dart';
-import 'package:SafeShopper/pages/settings_screen.dart';
 import 'package:SafeShopper/pages/signup_screen.dart';
 import 'package:SafeShopper/providers/theme_provider.dart';
 import 'package:SafeShopper/utils/auth_service.dart';
@@ -38,7 +37,6 @@ class App extends StatelessWidget {
         '/home': (BuildContext context) => HomePage(),
         '/signup': (BuildContext context) => SignUpPage(),
         '/login': (BuildContext context) => LoginPage(),
-        '/settings': (BuildContext context) => SettingsPage(),
       },
     );
   }
