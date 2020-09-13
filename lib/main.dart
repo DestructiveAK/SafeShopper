@@ -34,7 +34,6 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: AuthService.handleAuth(),
       routes: {
-        '/home': (BuildContext context) => HomePage(),
         '/signup': (BuildContext context) => SignUpPage(),
         '/login': (BuildContext context) => LoginPage(),
       },
