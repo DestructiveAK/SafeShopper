@@ -20,7 +20,7 @@ class _AnimateChildState extends State<AnimateChild>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 500),
     );
     _animation = CurvedAnimation(
       curve: Curves.easeIn,
