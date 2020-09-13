@@ -2,7 +2,6 @@ import 'package:SafeShopper/utils/auth_service.dart';
 import 'package:SafeShopper/utils/input_field.dart';
 import 'package:SafeShopper/utils/login_signup_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -57,8 +56,12 @@ class _LoginPageState extends State<LoginPage> {
                   //   style: TextStyle(fontWeight: FontWeight.bold),
                   // ),
                   SizedBox(height: size.height * 0.03),
-                  SvgPicture.asset(
-                    'assets/images/abstract6.svg',
+                  // SvgPicture.asset(
+                  //   'assets/images/abstract6.svg',
+                  //   height: size.height * 0.35,
+                  // ),
+                  Image.asset(
+                    'assets/images/abstract6.png',
                     height: size.height * 0.35,
                   ),
                   SizedBox(height: size.height * 0.03),
@@ -70,11 +73,14 @@ class _LoginPageState extends State<LoginPage> {
                           margin:
                               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                           decoration: BoxDecoration(
-                              color: Colors.red.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(color: Colors.red)
-                              ),
-                          child: Align(child: Text(_error), alignment: Alignment.centerLeft,),
+                            color: Colors.red.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(color: Colors.red),
+                          ),
+                          child: Align(
+                            child: Text(_error),
+                            alignment: Alignment.centerLeft,
+                          ),
                         )
                       : Container(),
                   SizedBox(height: size.height * 0.005),
@@ -97,7 +103,9 @@ class _LoginPageState extends State<LoginPage> {
                   LoginSignUpButton(
                     text: 'Login',
                     onPressed: () {
-                      AuthService.signIn(_email, _password, context, (value) {_error = value;});
+                      AuthService.signIn(_email, _password, context, (value) {
+                        _error = value;
+                      });
                       if (_error.isNotEmpty) {
                         setState(() {});
                       }

@@ -2,7 +2,6 @@ import 'package:SafeShopper/utils/auth_service.dart';
 import 'package:SafeShopper/utils/input_field.dart';
 import 'package:SafeShopper/utils/login_signup_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -54,8 +53,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   //   style: TextStyle(fontWeight: FontWeight.bold),
                   // ),
                   SizedBox(height: size.height * 0.03),
-                  SvgPicture.asset(
-                    'assets/images/abstract2.svg',
+                  // SvgPicture.asset(
+                  //   'assets/images/abstract2.svg',
+                  //   height: size.height * 0.35,
+                  // ),
+                  Image.asset(
+                    'assets/images/abstract2.png',
                     height: size.height * 0.35,
                   ),
                   SizedBox(height: size.height * 0.03),
@@ -102,7 +105,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   LoginSignUpButton(
                     text: 'Sign Up',
                     onPressed: () {
-                      AuthService.signUp(context, _name, _phone, _address, _email, _password);
+                      AuthService.signUp(
+                          context, _name, _phone, _address, _email, _password);
                     },
                   ),
                   SizedBox(height: size.height * 0.03),
