@@ -57,8 +57,8 @@ class AuthService {
     });
   }
 
-  static void createUserDetails(User user, BuildContext context, String name, String email,
-      String phone, String address) {
+  static void createUserDetails(User user, BuildContext context, String name,
+      String email, String phone, String address) {
     FirebaseFirestore.instance.collection('/users').add({
       'userId': user.uid,
       'name': name,

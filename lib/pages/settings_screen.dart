@@ -187,10 +187,7 @@ class SettingsPage extends StatelessWidget {
                           title: Text('Logout'),
                           leading: Icon(Icons.logout),
                           trailing: Icon(Icons.arrow_forward_ios),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            AuthService.signOut();
-                          },
+                          onTap: AuthService.signOut,
                         ),
                         SizedBox(
                           height: 5,
@@ -253,7 +250,10 @@ class ChangeDetailsAndPassword extends StatelessWidget {
       child: Container(
         height: height,
         child: Card(
-          child: child,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: child,
+          ),
           elevation: 10,
           margin: EdgeInsets.all(20),
           shape: RoundedRectangleBorder(
@@ -278,18 +278,20 @@ class _ChangeUserDetailsState extends State<ChangeUserDetails> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           'Change Details',
           style: TextStyle(
-            fontSize: 30,
+            fontSize: 35,
           ),
         ),
+        SizedBox(height: 25,),
         TextInputField(
           hintText: 'Name',
           icon: Icons.person,
+          keyboardType: TextInputType.name,
           onChanged: (value) {
             _name = value;
           },
@@ -297,6 +299,7 @@ class _ChangeUserDetailsState extends State<ChangeUserDetails> {
         TextInputField(
           hintText: 'Phone',
           icon: Icons.phone,
+          keyboardType: TextInputType.phone,
           onChanged: (value) {
             _phone = value;
           },
@@ -304,17 +307,19 @@ class _ChangeUserDetailsState extends State<ChangeUserDetails> {
         TextInputField(
           hintText: 'Address',
           icon: Icons.landscape,
+          keyboardType: TextInputType.streetAddress,
           onChanged: (value) {
             _address = value;
           },
         ),
+        SizedBox(height: 20,),
         FlatButton(
           onPressed: () {},
           color: Theme.of(context).accentColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Text(
-            'Change Details',
+            'Update',
           ),
         )
       ],
@@ -327,11 +332,16 @@ class TextInputField extends StatelessWidget {
       {Key key,
       @required this.hintText,
       @required this.icon,
-      @required this.onChanged})
+      @required this.onChanged,
+      this.obscureText = false,
+      this.keyboardType = TextInputType.name
+      })
       : super(key: key);
 
   final IconData icon;
   final String hintText;
+  final bool obscureText;
+  final TextInputType keyboardType;
   final void Function(String) onChanged;
 
   @override
@@ -346,6 +356,11 @@ class TextInputField extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        style: TextStyle(
+          color: Colors.black
+        ),
         decoration: InputDecoration(
             border: InputBorder.none,
             icon: Icon(icon),
@@ -382,6 +397,8 @@ class _ChangePasswordState extends State<ChangePassword> {
         TextInputField(
           hintText: 'New Password',
           icon: Icons.lock,
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: true,
           onChanged: (value) {
             _password = value;
           },
@@ -392,7 +409,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Text(
-            'Change Password',
+            'Update',
           ),
         )
       ],
