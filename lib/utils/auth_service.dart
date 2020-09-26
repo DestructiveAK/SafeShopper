@@ -84,7 +84,25 @@ class AuthService {
     });
   }
 
-  static void changePassword(String password) {}
+  static void changePassword(String password, String newPassword) {
+    AuthCredential credential = EmailAuthProvider.credential(
+      email: FirebaseAuth.instance.currentUser.email,
+      password: password,
+    );
+    FirebaseAuth.instance.currentUser.reauthenticateWithCredential(credential)
+    .then((value) {
+      FirebaseAuth.instance.currentUser.updatePassword(newPassword)
+      .then((value) {
+        FirebaseAuth.instance.currentUser.reload();
+      })
+      .catchError((e) {
+        print(e);
+      });
+    })
+    .catchError((e){
+      print(e);
+    });
+  }
 
   static void changeUserDetails(String name, String address, String phone) {
     FirebaseFirestore.instance

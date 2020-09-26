@@ -177,7 +177,7 @@ class SettingsPage extends StatelessWidget {
                               context: context,
                               builder: (context) => ChangeDetailsAndPassword(
                                 child: ChangePassword(),
-                                height: 300,
+                                height: 400,
                               ),
                             );
                           },
@@ -401,6 +401,7 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   String _password;
+  String _newPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -414,8 +415,11 @@ class _ChangePasswordState extends State<ChangePassword> {
             fontSize: 30,
           ),
         ),
+        SizedBox(
+          height: 25,
+        ),
         TextInputField(
-          hintText: 'New Password',
+          hintText: 'Current Password',
           icon: Icons.lock,
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
@@ -423,11 +427,26 @@ class _ChangePasswordState extends State<ChangePassword> {
             _password = value;
           },
         ),
+        TextInputField(
+          hintText: 'New Password',
+          icon: Icons.lock,
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: true,
+          onChanged: (value) {
+            _newPassword = value;
+          },
+        ),
+        SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                AuthService.changePassword(_password, _newPassword);
+                Navigator.of(context).pop();
+              },
               color: Theme.of(context).accentColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
@@ -436,7 +455,9 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
             ),
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
               color: Colors.red,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
