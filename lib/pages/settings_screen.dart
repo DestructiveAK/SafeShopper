@@ -110,14 +110,14 @@ class SettingsPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             elevation: 10,
-            child: StreamBuilder<QuerySnapshot>(
+            child: StreamBuilder<DocumentSnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('/users')
-                    .where('userId', isEqualTo: AuthService.userId())
+                    .doc(AuthService.userId())
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    final userDetails = snapshot.data.docs[0].data();
+                    final userDetails = snapshot.data.data();
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -287,7 +287,9 @@ class _ChangeUserDetailsState extends State<ChangeUserDetails> {
             fontSize: 35,
           ),
         ),
-        SizedBox(height: 25,),
+        SizedBox(
+          height: 25,
+        ),
         TextInputField(
           hintText: 'Name',
           icon: Icons.person,
@@ -312,15 +314,36 @@ class _ChangeUserDetailsState extends State<ChangeUserDetails> {
             _address = value;
           },
         ),
-        SizedBox(height: 20,),
-        FlatButton(
-          onPressed: () {},
-          color: Theme.of(context).accentColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            'Update',
-          ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FlatButton(
+              onPressed: () {
+                AuthService.changeUserDetails(_name, _address, _phone);
+                Navigator.of(context).pop();
+              },
+              color: Theme.of(context).accentColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                'Update',
+              ),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              color: Colors.red,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                'Cancel',
+              ),
+            ),
+          ],
         )
       ],
     );
@@ -334,8 +357,7 @@ class TextInputField extends StatelessWidget {
       @required this.icon,
       @required this.onChanged,
       this.obscureText = false,
-      this.keyboardType = TextInputType.name
-      })
+      this.keyboardType = TextInputType.name})
       : super(key: key);
 
   final IconData icon;
@@ -358,9 +380,7 @@ class TextInputField extends StatelessWidget {
       child: TextField(
         obscureText: obscureText,
         keyboardType: keyboardType,
-        style: TextStyle(
-          color: Colors.black
-        ),
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
             border: InputBorder.none,
             icon: Icon(icon),
@@ -403,14 +423,28 @@ class _ChangePasswordState extends State<ChangePassword> {
             _password = value;
           },
         ),
-        FlatButton(
-          onPressed: () {},
-          color: Theme.of(context).accentColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            'Update',
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FlatButton(
+              onPressed: () {},
+              color: Theme.of(context).accentColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                'Update',
+              ),
+            ),
+            FlatButton(
+              onPressed: () {},
+              color: Colors.red,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                'Cancel',
+              ),
+            ),
+          ],
         )
       ],
     );

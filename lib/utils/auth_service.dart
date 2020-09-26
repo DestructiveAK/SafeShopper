@@ -59,8 +59,19 @@ class AuthService {
 
   static void createUserDetails(User user, BuildContext context, String name,
       String email, String phone, String address) {
-    FirebaseFirestore.instance.collection('/users').add({
-      'userId': user.uid,
+    // FirebaseFirestore.instance.collection('/users').add({
+    //   'userId': user.uid,
+    //   'name': name,
+    //   'email': email,
+    //   'phone': phone,
+    //   'address': address
+    // }).then((user) {
+    //   Navigator.of(context).pop();
+    //   Navigator.of(context).pushReplacementNamed('/home');
+    // }).catchError((e) {
+    //   print(e);
+    // });
+    FirebaseFirestore.instance.collection('/users').doc(user.uid).set({
       'name': name,
       'email': email,
       'phone': phone,
@@ -70,6 +81,19 @@ class AuthService {
       Navigator.of(context).pushReplacementNamed('/home');
     }).catchError((e) {
       print(e);
+    });
+  }
+
+  static void changePassword(String password) {}
+
+  static void changeUserDetails(String name, String address, String phone) {
+    FirebaseFirestore.instance
+        .collection('/users')
+        .doc(AuthService.userId())
+        .update({
+      'name': name,
+      'address': address,
+      'phone': phone,
     });
   }
 
