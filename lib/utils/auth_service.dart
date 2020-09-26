@@ -89,17 +89,17 @@ class AuthService {
       email: FirebaseAuth.instance.currentUser.email,
       password: password,
     );
-    FirebaseAuth.instance.currentUser.reauthenticateWithCredential(credential)
-    .then((value) {
-      FirebaseAuth.instance.currentUser.updatePassword(newPassword)
-      .then((value) {
+    FirebaseAuth.instance.currentUser
+        .reauthenticateWithCredential(credential)
+        .then((value) {
+      FirebaseAuth.instance.currentUser
+          .updatePassword(newPassword)
+          .then((value) {
         FirebaseAuth.instance.currentUser.reload();
-      })
-      .catchError((e) {
+      }).catchError((e) {
         print(e);
       });
-    })
-    .catchError((e){
+    }).catchError((e) {
       print(e);
     });
   }

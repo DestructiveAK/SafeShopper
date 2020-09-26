@@ -4,7 +4,7 @@ class LoginSignUpButton extends StatelessWidget {
   const LoginSignUpButton({
     Key key,
     @required this.text,
-    @required this.onPressed
+    @required this.onPressed,
   }) : super(key: key);
 
   final String text;

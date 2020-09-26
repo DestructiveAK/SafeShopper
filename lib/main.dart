@@ -1,4 +1,3 @@
-import 'package:SafeShopper/pages/home_screen.dart';
 import 'package:SafeShopper/pages/login_screen.dart';
 import 'package:SafeShopper/pages/signup_screen.dart';
 import 'package:SafeShopper/providers/theme_provider.dart';

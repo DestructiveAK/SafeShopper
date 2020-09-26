@@ -31,18 +31,14 @@ class InputField extends StatelessWidget {
         obscureText: isObscureText,
         keyboardType: keyboardType,
         cursorColor: Color(0xFF6F35A5),
-        style: TextStyle(
-          color: Colors.black
-        ),
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
           icon: Icon(
             icon,
             color: Color(0xFF6F35A5),
           ),
           hintText: hintText,
-          hintStyle: TextStyle(
-            color: Colors.black
-          ),
+          hintStyle: TextStyle(color: Colors.black),
           border: InputBorder.none,
         ),
         onChanged: onChange,

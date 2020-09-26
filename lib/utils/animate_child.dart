@@ -11,7 +11,6 @@ class AnimateChild extends StatefulWidget {
 
 class _AnimateChildState extends State<AnimateChild>
     with SingleTickerProviderStateMixin {
-      
   AnimationController _animationController;
 
   Animation<double> _animation;
