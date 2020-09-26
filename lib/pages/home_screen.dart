@@ -22,20 +22,22 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         title: Text(_currentIndex == 0 ? 'Home' : 'Settings'),
         centerTitle: true,
-        actions: [
-          if (_currentIndex == 0)
-            IconButton(
-              icon: Icon(Icons.filter_list),
-              onPressed: () {},
-            )
-        ],
+        // actions: [
+        //   if (_currentIndex == 0)
+        //     IconButton(
+        //       icon: Icon(Icons.filter_list),
+        //       onPressed: () {},
+        //     )
+        // ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 10,
         currentIndex: _currentIndex,
         onTap: (index) {
-          _currentIndex = index;
-          setState(() {});
+          if (_currentIndex != index) {
+            _currentIndex = index;
+            setState(() {});
+          }
         },
         items: [
           BottomNavigationBarItem(
