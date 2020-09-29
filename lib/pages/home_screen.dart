@@ -42,11 +42,11 @@ class _HomePageState extends State<HomePage>
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            label: 'Settings',
           )
         ],
       ),
