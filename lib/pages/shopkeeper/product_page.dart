@@ -1,5 +1,6 @@
 import 'package:SafeShopper/utils/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class AddItemPage extends StatelessWidget {
@@ -35,9 +36,25 @@ class AddItemPage extends StatelessWidget {
                         return Container();
                       }
                       return ListTile(
+                        leading: SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: FutureBuilder(
+                            future: FirebaseStorage.instance
+                                .ref()
+                                .child(snapshot.data.data()["name"] + ".jpg")
+                                .getDownloadURL(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Container();
+                              }
+                              return Image.network(snapshot.data,
+                                  fit: BoxFit.cover);
+                            },
+                          ),
+                        ),
                         title: Text(snapshot.data.data()["name"]),
-                        subtitle:
-                            Text(snapshot.data.data()["description"]),
+                        subtitle: Text(snapshot.data.data()["description"]),
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
