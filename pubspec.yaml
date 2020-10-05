@@ -23,10 +23,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg:
   firebase_core:
   cloud_firestore:
   firebase_auth:
+  firebase_storage:
   provider:
   shared_preferences:
 
