@@ -1,18 +1,36 @@
 import 'package:SafeShopper/pages/home_screen.dart';
 import 'package:SafeShopper/pages/login_screen.dart';
+import 'package:SafeShopper/pages/shopkeeper/shopkeeper_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
   static Widget handleAuth() {
-    return StreamBuilder(
+    return StreamBuilder(                                 
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if (!snapshot.hasData) {
           return LoginPage();
         } else {
-          return HomePage();
+          return FutureBuilder(                       
+              future: FirebaseFirestore.instance      
+                  .collection("/users")               
+                  .doc(snapshot.data.uid)              
+                  .get(),                             
+              builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {        
+                if (snapshot.hasData) {   
+                  if (snapshot.data.data()["role"] == "buyer") {        
+                    return HomePage();
+                  } else if (snapshot.data.data()["role"] == "shopkeeper") {
+                    return ShopkeeperPage();
+                  } else {
+                    return LoginPage();
+                  }
+                } else {
+                  return LoginPage();
+                }
+              });
         }
       },
     );
