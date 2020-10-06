@@ -99,7 +99,8 @@ class AuthService {
       'name': name,
       'email': email,
       'phone': phone,
-      'address': address
+      'address': address,
+      'role': 'buyer'
     }).then((user) {
       Navigator.of(context).pop();
       Navigator.of(context).pushReplacementNamed('/home');
