@@ -1,20 +1,15 @@
-// import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class OrderDetailsPage extends StatelessWidget {
+class OrderDetails extends StatelessWidget {
   final String orderId;
-  OrderDetailsPage({@required this.orderId //Making constructor for the class
+  OrderDetails({@required this.orderId 
       });
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Order Details"),
-        ),
-        body: StreamBuilder<DocumentSnapshot>(
+    return Expanded(
+      child: StreamBuilder<DocumentSnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("/orders")
                 .doc(orderId)
@@ -116,6 +111,7 @@ class OrderDetailsPage extends StatelessWidget {
                       )),
                 ],
               );
-            }));
+            }),
+    );
   }
 }

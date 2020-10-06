@@ -1,10 +1,9 @@
-
-import 'package:SafeShopper/pages/shopkeeper/shopkeeper_order_details.dart';
+import 'package:SafeShopper/pages/transporter/transporter_order_details.dart';
 import 'package:SafeShopper/utils/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class OrderPage extends StatelessWidget {
+class TransporterOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +21,7 @@ class OrderPage extends StatelessWidget {
                       .collection("/orders")
                       .where("shopId",
                           isEqualTo: snapshot.data.data()["shopId"])
-                      .where("status", isEqualTo: "ordered")
+                      .where("status", isEqualTo: "enroute")
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -47,7 +46,7 @@ class OrderPage extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => ShopkeeperOrderDetails(
+                                      builder: (context) => TransporterOrderDetails(
                                           orderId: documents[index].id),
                                     ),
                                   );
@@ -71,3 +70,5 @@ class OrderPage extends StatelessWidget {
             }));
   }
 }
+
+//Text("Customer Name: ${documents[index].data()["customerId"].get().data()["name"]}")

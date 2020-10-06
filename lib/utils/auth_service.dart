@@ -1,6 +1,7 @@
 import 'package:SafeShopper/pages/home_screen.dart';
 import 'package:SafeShopper/pages/login_screen.dart';
 import 'package:SafeShopper/pages/shopkeeper/shopkeeper_page.dart';
+import 'package:SafeShopper/pages/transporter/transporter_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,14 @@ class AuthService {
                 if (snapshot.hasData) {   
                   if (snapshot.data.data()["role"] == "buyer") {        
                     return HomePage();
-                  } else if (snapshot.data.data()["role"] == "shopkeeper") {
+                  } 
+                  if (snapshot.data.data()["role"] == "shopkeeper") {
                     return ShopkeeperPage();
-                  } else {
+                  } 
+                  if(snapshot.data.data()["role"] == "transporter") {
+                    return TransporterPage();
+                  }
+                  else {
                     return LoginPage();
                   }
                 } else {
