@@ -22,13 +22,6 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         title: Text(_currentIndex == 0 ? 'Home' : 'Settings'),
         centerTitle: true,
-        // actions: [
-        //   if (_currentIndex == 0)
-        //     IconButton(
-        //       icon: Icon(Icons.filter_list),
-        //       onPressed: () {},
-        //     )
-        // ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 10,

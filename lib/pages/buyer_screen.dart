@@ -1,3 +1,4 @@
+import 'package:SafeShopper/pages/product_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +37,9 @@ class _BuyerPageState extends State<BuyerPage>
               ),
               margin: EdgeInsets.all(8.0),
               child: ListTile(
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductPage(shopId: documents[index].id,)));
+                },
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 leading: getIcon(documents[index].data()['category']),
