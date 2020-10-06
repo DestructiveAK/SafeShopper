@@ -8,9 +8,14 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+
+  List<String> _title = [
+    'Home',
+    'Settings',
+  ];
+
   List<Widget> _page = [
     BuyerPage(),
     SettingsPage(),
@@ -20,7 +25,7 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentIndex == 0 ? 'Home' : 'Settings'),
+        title: Text(_title[_currentIndex]),
         centerTitle: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
