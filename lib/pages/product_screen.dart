@@ -4,15 +4,25 @@ import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {
   final String shopId;
-  ProductPage({@required this.shopId});
+
+  ProductPage({
+    @required this.shopId,
+  });
+
   @override
   _ProductPageState createState() => _ProductPageState();
 }
 
-class _ProductPageState extends State<ProductPage>
-    with SingleTickerProviderStateMixin {
+class _ProductPageState extends State<ProductPage> {
   int _currentIndex = 0;
+
   List<Widget> _page;
+
+  List<String> _title = [
+    'Products',
+    'Cart',
+  ];
+
   @override
   void initState() {
     _page = [
@@ -28,7 +38,7 @@ class _ProductPageState extends State<ProductPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentIndex == 0 ? 'Products' : 'Cart'),
+        title: Text(_title[_currentIndex]),
         centerTitle: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
