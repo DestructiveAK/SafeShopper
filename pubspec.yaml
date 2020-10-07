@@ -26,7 +26,7 @@ dependencies:
   firebase_core:
   cloud_firestore:
   firebase_auth:
-  firebase_storage:
+  # firebase_storage:
   provider:
   shared_preferences:
 

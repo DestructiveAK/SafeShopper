@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class ProductList extends StatelessWidget {
@@ -38,24 +37,11 @@ class ProductList extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        FutureBuilder(
-                          future: FirebaseStorage.instance
-                              .ref()
-                              .child(
-                                snapshot.data.data()['name'] + '.jpg',
-                              )
-                              .getDownloadURL(),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return Container();
-                            }
-                            return Image.network(
-                              snapshot.data,
+                        Image.network(
+                              snapshot.data.data()['image'],
                               height: 120,
                               width: 120,
-                            );
-                          },
-                        ),
+                            ),
                         Text(
                           snapshot.data.data()['name'],
                           style: TextStyle(
