@@ -20,7 +20,14 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('LOGIN'),
+        title: Text(
+          'LOGIN',
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black
+                : Colors.white,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -34,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Positioned(
               child: Image(
-                image: AssetImage('assets/images/abstract5.png'),
+                image: AssetImage('assets/images/abstract2.png'),
                 height: size.height * 0.25,
               ),
               top: 0,
@@ -42,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Positioned(
               child: Image(
-                image: AssetImage('assets/images/abstract4.png'),
+                image: AssetImage('assets/images/abstract1.png'),
               ),
               bottom: 0,
               left: 0,
@@ -61,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   //   height: size.height * 0.35,
                   // ),
                   Image.asset(
-                    'assets/images/abstract6.png',
+                    'assets/images/login.png',
                     height: size.height * 0.35,
                   ),
                   SizedBox(height: size.height * 0.03),

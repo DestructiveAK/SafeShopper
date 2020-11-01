@@ -24,7 +24,14 @@ class _SignUpPageState extends State<SignUpPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('SIGNUP'),
+        title: Text(
+          'SIGNUP',
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black
+                : Colors.white,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -38,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Positioned(
               child: Image(
-                image: AssetImage('assets/images/abstract5.png'),
+                image: AssetImage('assets/images/abstract2.png'),
                 height: size.height * 0.25,
               ),
               top: 0,
@@ -58,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   //   height: size.height * 0.35,
                   // ),
                   Image.asset(
-                    'assets/images/abstract2.png',
+                    'assets/images/signup.png',
                     height: size.height * 0.35,
                   ),
                   SizedBox(height: size.height * 0.03),
