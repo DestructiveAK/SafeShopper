@@ -8,34 +8,31 @@ import 'package:flutter/material.dart';
 
 class AuthService {
   static Widget handleAuth() {
-    return StreamBuilder(                                 
+    return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if (!snapshot.hasData) {
           return LoginPage();
         } else {
-          return FutureBuilder(                       
-              future: FirebaseFirestore.instance      
-                  .collection("/users")               
-                  .doc(snapshot.data.uid)              
-                  .get(),                             
-              builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {        
-                if (snapshot.hasData) {   
-                  if (snapshot.data.data()["role"] == "buyer") {        
+          return FutureBuilder(
+              future: FirebaseFirestore.instance
+                  .collection("/users")
+                  .doc(snapshot.data.uid)
+                  .get(),
+              builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data.data()["role"] == "buyer") {
                     return HomePage();
-                  } 
+                  }
                   if (snapshot.data.data()["role"] == "shopkeeper") {
                     return ShopkeeperPage();
-                  } 
-                  if(snapshot.data.data()["role"] == "transporter") {
+                  }
+                  if (snapshot.data.data()["role"] == "transporter") {
                     return TransporterPage();
                   }
-                  else {
-                    return LoginPage();
-                  }
-                } else {
-                  return LoginPage();
                 }
+
+                return LoginPage();
               });
         }
       },
