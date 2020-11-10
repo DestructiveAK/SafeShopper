@@ -129,7 +129,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       Navigator.of(context).pop();
                       Navigator.of(context).pushReplacementNamed('/login');
                     },
-                  )
+                  ),
+                  SizedBox(height: size.height * 0.03)
                 ],
               ),
             )
