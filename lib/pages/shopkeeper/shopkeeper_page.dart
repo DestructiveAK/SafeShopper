@@ -1,6 +1,8 @@
 import 'package:SafeShopper/pages/settings_screen.dart';
 import 'package:SafeShopper/pages/shopkeeper/order_page.dart';
 import 'package:SafeShopper/pages/shopkeeper/product_page.dart';
+import 'package:SafeShopper/pages/shopkeeper/shopkeeper_add_item.dart';
+
 import 'package:SafeShopper/utils/animate_child.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,12 @@ class _ShopkeeperPageState extends State<ShopkeeperPage> {
         centerTitle: true,
         actions: [
           if (_currentIndex == 1)
-            IconButton(icon: Icon(Icons.add), onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddItem()));
+                }),
         ],
       ),
       body: AnimateChild(child: _page[_currentIndex]),

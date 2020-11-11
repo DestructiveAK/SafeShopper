@@ -4,6 +4,7 @@ import 'package:SafeShopper/utils/animate_child.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 class ProductPage extends StatefulWidget {
   final String shopId;
 

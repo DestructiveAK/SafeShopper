@@ -2,6 +2,7 @@ import 'package:SafeShopper/pages/buyer_screen.dart';
 import 'package:SafeShopper/pages/settings_screen.dart';
 import 'package:SafeShopper/utils/animate_child.dart';
 import 'package:flutter/material.dart';
+import 'package:SafeShopper/pages/order_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,11 +14,13 @@ class _HomePageState extends State<HomePage> {
 
   List<String> _title = [
     'Home',
+    'Orders',
     'Settings',
   ];
 
   List<Widget> _page = [
     BuyerPage(),
+    BuyerOrderPage(),
     SettingsPage(),
   ];
 
@@ -42,6 +45,10 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.done),
+              label: 'Orders',
+            ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
