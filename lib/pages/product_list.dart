@@ -1,3 +1,4 @@
+import 'package:SafeShopper/pages/product_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -33,15 +34,26 @@ class ProductList extends StatelessWidget {
                   if (!snapshot.hasData) {
                     return Container();
                   }
-                  return GridTile(
+                  return InkResponse(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetails(productId: snapshot.data.id)));
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Image.network(
-                              snapshot.data.data()['image'],
-                              height: 120,
-                              width: 120,
-                            ),
+                        Hero(
+                          
+                          tag: snapshot.data.data()['image'],
+                          child: Image.network(
+                            snapshot.data.data()['image'],
+                            height: 120,
+                            width: 120,
+                          ),
+                        ),
+            
+  
                         Text(
                           snapshot.data.data()['name'],
                           style: TextStyle(
