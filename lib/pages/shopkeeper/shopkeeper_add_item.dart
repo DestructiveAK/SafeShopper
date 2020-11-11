@@ -25,6 +25,7 @@ class _AddItemState extends State<AddItem> {
               return CircularProgressIndicator();
             }
             List<QueryDocumentSnapshot> documents = snapshot.data.docs;
+            
             for (int i = 0; i < documents.length; i++) {
               checkedItemList.add({
                 "productId": documents[i].id,
@@ -49,35 +50,37 @@ class _AddItemState extends State<AddItem> {
           },
         ),
       ),
-      floatingActionButton: Visibility(
-        child: FloatingActionButton(
-          onPressed: () {
-            List<DocumentReference> items = [];
-            for (int i = 0; i < checkedItemList.length; i++) {
-              if (checkedItemList[i]["checked"]) {
-                items.add(FirebaseFirestore.instance
-                    .collection("/products")
-                    .doc(checkedItemList[i]["productId"]));
-              }
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          List<DocumentReference> items = [];
+          for (int i = 0; i < checkedItemList.length; i++) {
+            if (checkedItemList[i]["checked"]) {
+              items.add(FirebaseFirestore.instance
+                  .collection("/products")
+                  .doc(checkedItemList[i]["productId"]));
             }
+          }
+          if(items.length>0)
+          {
+          FirebaseFirestore.instance
+              .collection("/users")
+              .doc(AuthService.userId())
+              .get()
+              .then((user) {
             FirebaseFirestore.instance
-                .collection("/users")
-                .doc(AuthService.userId())
-                .get()
-                .then((user) {
-              FirebaseFirestore.instance
-                  .collection("/shops")
-                  .doc(user.data()["shopId"])
-                  .update({"products": FieldValue.arrayUnion(items)});
-            }).whenComplete(() {
-              Future.delayed(Duration(seconds: 2), () {
-                Navigator.of(context).pop();
-              });
+                .collection("/shops")
+                .doc(user.data()["shopId"])
+                .update({"products": FieldValue.arrayUnion(items)});
+          }).whenComplete(() {
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.of(context).pop();
             });
-          },
-          child: Icon(Icons.save),
-        ),
+          });
+        }
+        },
+        child: Icon(Icons.save),
       ),
     );
   }
 }
+
