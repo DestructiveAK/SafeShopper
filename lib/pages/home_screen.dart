@@ -26,44 +26,55 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title[_currentIndex]),
-        centerTitle: true,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          if (_currentIndex != index) {
-            _currentIndex = index;
-            setState(() {});
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
+    return WillPopScope(
+      onWillPop: () async {
+        if (_currentIndex == 0) {
+          return true;
+        } else {
+          _currentIndex = 0;
+          setState(() {});
+          return false;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title[_currentIndex]),
+          centerTitle: true,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 10,
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            if (_currentIndex != index) {
+              _currentIndex = index;
+              setState(() {});
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.done),
               label: 'Orders',
             ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          )
-        ],
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            )
+          ],
+        ),
+        // body: AnimatedCrossFade(
+        //   duration: Duration(milliseconds: 500),
+        //   firstChild: _page[0],
+        //   secondChild: _page[1],
+        //   crossFadeState: _currentIndex == 0
+        //       ? CrossFadeState.showFirst
+        //       : CrossFadeState.showSecond,
+        // ),
+        body: AnimateChild(child: _page[_currentIndex]),
       ),
-      // body: AnimatedCrossFade(
-      //   duration: Duration(milliseconds: 500),
-      //   firstChild: _page[0],
-      //   secondChild: _page[1],
-      //   crossFadeState: _currentIndex == 0
-      //       ? CrossFadeState.showFirst
-      //       : CrossFadeState.showSecond,
-      // ),
-      body: AnimateChild(child: _page[_currentIndex]),
     );
   }
 }

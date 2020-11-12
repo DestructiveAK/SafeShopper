@@ -26,46 +26,57 @@ class _ShopkeeperPageState extends State<ShopkeeperPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title[_currentIndex]),
-        centerTitle: true,
-        actions: [
-          if (_currentIndex == 1)
-            IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddItem()));
-                }),
-        ],
-      ),
-      body: AnimateChild(child: _page[_currentIndex]),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          if (_currentIndex != index) {
-            _currentIndex = index;
-            setState(() {});
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_bag,
+    return WillPopScope(
+      onWillPop: () async {
+        if (_currentIndex == 0) {
+          return true;
+        } else {
+          _currentIndex = 0;
+          setState(() {});
+          return false;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title[_currentIndex]),
+          centerTitle: true,
+          actions: [
+            if (_currentIndex == 1)
+              IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => AddItem()));
+                  }),
+          ],
+        ),
+        body: AnimateChild(child: _page[_currentIndex]),
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 10,
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            if (_currentIndex != index) {
+              _currentIndex = index;
+              setState(() {});
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_bag,
+              ),
+              label: "Orders",
             ),
-            label: "Orders",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: "Add Item",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Setting",
-          ),
-        ],
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: "Products",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Setting",
+            ),
+          ],
+        ),
       ),
     );
   }
