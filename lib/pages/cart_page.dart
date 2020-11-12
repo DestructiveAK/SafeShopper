@@ -19,86 +19,90 @@ class CartPage extends StatelessWidget {
                   margin: EdgeInsets.all(10),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
-                  child: DataTable(
-                    columns: [
-                      DataColumn(
-                        label: Text(
-                          "Product Name",
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          "Qty",
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text('Price'),
-                      ),
-                      DataColumn(
-                        label: Text(''),
-                      ),
-                    ],
-                    rows: cart.productList
-                        .map<DataRow>(
-                          (product) => DataRow(
-                            cells: [
-                              DataCell(
-                                FutureBuilder<DocumentSnapshot>(
-                                  future: product["productId"].get(),
-                                  builder: (context, snapshot) {
-                                    if (!snapshot.hasData) {
-                                      return Container();
-                                    }
-                                    return Text(snapshot.data.data()["name"]);
-                                  },
-                                ),
-                              ),
-                              DataCell(
-                                DropdownButton<int>(
-                                  value: product['qty'],
-                                  items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                                      .map(
-                                        (int value) => DropdownMenuItem(
-                                          value: value,
-                                          child: Text(value.toString()),
-                                        ),
-                                      )
-                                      .toList(),
-                                  onChanged: (int value) {
-                                    Provider.of<CartProvider>(context,
-                                            listen: false)
-                                        .changeQty(product['productId'], value);
-                                  },
-                                ),
-                              ),
-                              DataCell(
-                                FutureBuilder<DocumentSnapshot>(
-                                  future: product['productId'].get(),
-                                  builder: (context, snapshot) {
-                                    if (!snapshot.hasData) {
-                                      return Container();
-                                    }
-                                    return Text(
-                                      '${snapshot.data.data()['price'] * product['qty']}',
-                                    );
-                                  },
-                                ),
-                              ),
-                              DataCell(
-                                IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    Provider.of<CartProvider>(
-                                      context,
-                                      listen: false,
-                                    ).removeItem(product['productId']);
-                                  },
-                                ),
-                              ),
-                            ],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      columns: [
+                        DataColumn(
+                          label: Text(
+                            "Product Name",
                           ),
-                        )
-                        .toList(),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            "Qty",
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text('Price'),
+                        ),
+                        DataColumn(
+                          label: Text(''),
+                        ),
+                      ],
+                      rows: cart.productList
+                          .map<DataRow>(
+                            (product) => DataRow(
+                              cells: [
+                                DataCell(
+                                  FutureBuilder<DocumentSnapshot>(
+                                    future: product["productId"].get(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Container();
+                                      }
+                                      return Text(snapshot.data.data()["name"]);
+                                    },
+                                  ),
+                                ),
+                                DataCell(
+                                  DropdownButton<int>(
+                                    value: product['qty'],
+                                    items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                                        .map(
+                                          (int value) => DropdownMenuItem(
+                                            value: value,
+                                            child: Text(value.toString()),
+                                          ),
+                                        )
+                                        .toList(),
+                                    onChanged: (int value) {
+                                      Provider.of<CartProvider>(context,
+                                              listen: false)
+                                          .changeQty(
+                                              product['productId'], value);
+                                    },
+                                  ),
+                                ),
+                                DataCell(
+                                  FutureBuilder<DocumentSnapshot>(
+                                    future: product['productId'].get(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Container();
+                                      }
+                                      return Text(
+                                        '${snapshot.data.data()['price'] * product['qty']}',
+                                      );
+                                    },
+                                  ),
+                                ),
+                                DataCell(
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                      Provider.of<CartProvider>(
+                                        context,
+                                        listen: false,
+                                      ).removeItem(product['productId']);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
                 ),
                 Card(
