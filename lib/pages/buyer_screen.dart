@@ -37,8 +37,14 @@ class _BuyerPageState extends State<BuyerPage>
               ),
               margin: EdgeInsets.all(8.0),
               child: ListTile(
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductPage(shopId: documents[index].id,)));
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProductPage(
+                        shopId: documents[index].id,
+                      ),
+                    ),
+                  );
                 },
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),

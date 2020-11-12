@@ -1,4 +1,5 @@
 import 'package:SafeShopper/providers/cart_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
 class CartProvider with ChangeNotifier {
@@ -16,13 +17,28 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(Map<String, dynamic> item) {
-    _cart.removeItemFromCart(item);
+  void removeItem(DocumentReference productId) {
+    _cart.removeItemFromCart(productId);
     notifyListeners();
   }
 
-  void changeQty(String productId, int qty) {
+  void changeQty(DocumentReference productId, int qty) {
     _cart.changeQuantity(productId, qty);
     notifyListeners();
+  }
+
+  void placeOrder() {
+    FirebaseFirestore.instance.collection('/orders').doc().set({
+      'customerId': _cart.userId,
+      'shopId': _cart.shopId,
+      'status': 'ordered',
+      'products': _cart.productList,
+    });
+    _cart.productList = [];
+    notifyListeners();
+  }
+
+  bool checkInCart(DocumentReference productId) {
+    return _cart.checkInCart(productId);
   }
 }

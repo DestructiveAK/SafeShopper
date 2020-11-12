@@ -1,13 +1,16 @@
+import 'package:SafeShopper/providers/cart_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatelessWidget {
   final String productId;
 
   ProductDetails({@required this.productId});
-
   @override
   Widget build(BuildContext context) {
+    bool isButtonDisabled = Provider.of<CartProvider>(context).checkInCart(
+        FirebaseFirestore.instance.collection('/products').doc(productId));
     return Scaffold(
       appBar: AppBar(
         title: Text('Product Details'),
@@ -61,12 +64,25 @@ class ProductDetails extends StatelessWidget {
                 RaisedButton(
                   color: Colors.cyan,
                   elevation: 8,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  padding: EdgeInsets.symmetric(vertical: 20,horizontal: 40),
-                  onPressed: (){
-                      print("Button Pressed !!");
-                  }, 
-                  child: Text("Add to cart",style: TextStyle(fontSize: 20),),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  onPressed: isButtonDisabled
+                      ? null
+                      : () {
+                          Provider.of<CartProvider>(context, listen: false)
+                              .addItem({
+                            'productId': FirebaseFirestore.instance
+                                .collection('/products')
+                                .doc(productId),
+                            'qty': 1
+                          });
+                        },
+                  child: Text(
+                    isButtonDisabled ? 'Go to cart' : 'Add to cart',
+                    style: TextStyle(fontSize: 20),
+                  ),
                 )
               ],
             ),

@@ -1,12 +1,15 @@
 import 'package:SafeShopper/utils/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Cart {
-  String userId;
+  DocumentReference userId;
   String shopId;
   List<Map<String, dynamic>> productList;
 
   Cart(String shopId) {
-    this.userId = AuthService.userId();
+    this.userId = FirebaseFirestore.instance
+        .collection('/users')
+        .doc(AuthService.userId());
     this.shopId = shopId;
     this.productList = [];
   }
@@ -15,13 +18,19 @@ class Cart {
     productList.add(item);
   }
 
-  void removeItemFromCart(Map<String, dynamic> item) {
-    productList.remove(item);
+  void removeItemFromCart(DocumentReference productId) {
+    productList.removeWhere((element) => element['productId'] == productId);
   }
 
-  void changeQuantity(String productId, int qty) {
+  void changeQuantity(DocumentReference productId, int qty) {
     int index =
         productList.indexWhere((element) => element['productId'] == productId);
     productList[index]['qty'] = qty;
+  }
+
+  bool checkInCart(DocumentReference productId) {
+    int index =
+        productList.indexWhere((element) => element['productId'] == productId);
+    return index != -1;
   }
 }

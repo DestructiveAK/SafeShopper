@@ -1,10 +1,16 @@
 import 'package:SafeShopper/pages/product_details.dart';
+import 'package:SafeShopper/providers/cart_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductList extends StatelessWidget {
   final String shopId;
-  ProductList({@required this.shopId});
+  final CartProvider cartProvider;
+  ProductList({
+    @required this.shopId,
+    @required this.cartProvider,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,15 +42,19 @@ class ProductList extends StatelessWidget {
                   }
                   return InkResponse(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ProductDetails(productId: snapshot.data.id)));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider.value(
+                            value: cartProvider,
+                            child: ProductDetails(productId: snapshot.data.id),
+                          ),
+                        ),
+                      );
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Hero(
-                          
                           tag: snapshot.data.data()['image'],
                           child: Image.network(
                             snapshot.data.data()['image'],
@@ -52,8 +62,6 @@ class ProductList extends StatelessWidget {
                             width: 120,
                           ),
                         ),
-            
-  
                         Text(
                           snapshot.data.data()['name'],
                           style: TextStyle(
