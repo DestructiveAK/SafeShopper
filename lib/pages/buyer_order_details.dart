@@ -1,3 +1,4 @@
+import 'package:SafeShopper/utils/price_calculator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,11 @@ class BuyerOrderDetails extends StatelessWidget {
                   if (!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator());
                   }
+                  if (snapshot.data.data() == null) {
+                    return Container();
+                  }
                   List<dynamic> productList = snapshot.data.data()["products"];
-                  Future<double> totalPrice = calcPrice(productList);
+
                   return ListView(
                     children: [
                       Card(
@@ -136,7 +140,7 @@ class BuyerOrderDetails extends StatelessWidget {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 FutureBuilder(
-                                  future: totalPrice,
+                                  future: calcPrice(productList),
                                   builder: (context, snapshot) {
                                     if (!snapshot.hasData) {
                                       return Text("");
@@ -178,14 +182,6 @@ class BuyerOrderDetails extends StatelessWidget {
   }
 }
 
-Future<double> calcPrice(List<dynamic> productList) async {
-  double totalPrice = 0;
-  for (int i = 0; i < productList.length; i++) {
-    dynamic product = await productList[i]["productId"].get();
-    totalPrice += product.data()["price"] * productList[i]["qty"];
-  }
-  return totalPrice;
-}
 Future<void> showAlertDialog(BuildContext context, String orderId) async {
   return showDialog<void>(
     barrierDismissible: false,
@@ -197,11 +193,12 @@ Future<void> showAlertDialog(BuildContext context, String orderId) async {
       actions: [
         FlatButton(
             onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
               FirebaseFirestore.instance
                   .collection("/orders")
                   .doc(orderId)
                   .delete();
-              Navigator.of(context).pop();
             },
             child: Text("Yes")),
         FlatButton(
