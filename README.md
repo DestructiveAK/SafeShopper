@@ -1,16 +1,39 @@
 # SafeShopper
 
-A new Flutter project.
+A way to cater the needs of people by connecting them with local businesses.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Android App
 
-A few resources to get you started if this is your first Flutter project:
+Go to **build\app\outputs\apk\release** folder, then transfer one of these apks to your android device and install it:  
+- *app-arm64-v8a-release.apk*  (this will work for most android devices)  
+- *app-x86_64-release.apk*     (use this if above doesn't work)  
+- *app-armeabi-v7a-release.apk* (use this if above two doesn't work)  
+  
+### Optional
+If you want to compile the app yourself, follow these steps:
+1. Setup [Flutter](https://flutter.dev/docs/get-started/install).
+2. Setup [editor](https://flutter.dev/docs/get-started/editor).
+3. Open the project folder. Then follow these [steps to run](https://flutter.dev/docs/get-started/test-drive)
+---
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## IPhone App
+For iPhone app, you need to have MacBook.  
+Steps to compile app for iPhone platform:
+1. Setup [Xcode](https://developer.apple.com/xcode/ide/) in MacBook.
+2. Setup [Flutter](https://flutter.dev/docs/get-started/install/macos).
+3. - Using Xcode, open the project's **ios/Runner.xcworkspace** file. Right click Runner from the left-hand side project navigation within Xcode and select "Add files".
+   - Select the **GoogleService-Info.plist** file from **assets/** folder, and ensure the "Copy items if needed" checkbox is enabled.
+4. Then, follow these [steps](https://flutter.dev/docs/get-started/install/macos#deploy-to-ios-devices).
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## Web App  
+
+Open either of following links in any browser:  
+- <https://safeshopper-eedd3.web.app/>
+- <https://safeshopper-eedd3.firebaseapp.com/>
+>### Warning!
+> These websites are not optimized for large screens.  
+> So, open these only in smartphones.
